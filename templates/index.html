@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Controle de Estoque</h1>
+    <main class="layout">
+        <form method="POST" action="/cadastrar">
+            <label for="nome-produto">Nome do produto</label>
+            <input class="input" type="text" placeholder="Nome" id="nome-produto" name="nome" required>
+
+            <label for="quantidade-produto">Quantidade </label>
+            <input class="input" type="number" placeholder="Quantidade" id="quantidade-produto" name="quantidade"
+                required min="0">
+
+            <label for="preco-produto">Preço do Produto</label>
+            <input class="input" type="number" placeholder="Preço Ex 19.99" step="0.01" id="preco-produto" name="preco"
+                required min="0">
+
+            <button>Cadastrar</button>
+
+        </form>
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto[0] }}</td>
+                    <td>{{ produto[1] }}</td>
+                    <td>{{ produto[2] }}</td>
+                    <td>R$ {{ "%.2f"|format(produto[3]) }}</td>
+                    <td>
+                        <form class="form-excluir" method="POST" action="/excluir/{{ produto[0] }}">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+    <script src="script.js">console.log("JavaScriptconectado!")</script>
+</body>
+
+</html>
